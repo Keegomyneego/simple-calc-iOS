@@ -71,12 +71,22 @@ class ViewController: UIViewController {
     }
 
     @IBAction func operatorSelected(_ sender: UIButton) {
-        let numberExpression: Expression = Number(currentNumber)
         let operatorExpression: Expression = definedOperators[sender.currentTitle!]!
 
-        expressionQueue += [numberExpression, operatorExpression]
+        if currentNumberExists() {
+            // add number and operator to queue
 
-        resetCurrentNumber()
+            let numberExpression: Expression = Number(currentNumber)
+
+            expressionQueue += [numberExpression, operatorExpression]
+
+            resetCurrentNumber()
+        } else if !expressionQueue.isEmpty {
+            // replace last expression in queue
+
+            expressionQueue.removeLast()
+            expressionQueue.append(operatorExpression)
+        }
     }
 
     @IBAction func backspaceSelected(_ sender: UIButton) {
@@ -88,6 +98,10 @@ class ViewController: UIViewController {
     //------------------------------------------------------------
     // Helper Methods
     //------------------------------------------------------------
+
+    private func currentNumberExists() -> Bool {
+        return currentNumber != ""
+    }
 
     private func resetCurrentNumber() {
         currentNumber = ""
