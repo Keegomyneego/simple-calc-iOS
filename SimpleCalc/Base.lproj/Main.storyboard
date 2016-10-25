@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -76,6 +76,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HT3-Cd-mEc">
                                 <state key="normal" title="0"/>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aPP-WE-3C9">
+                                <state key="normal" title="⌫"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -99,9 +102,13 @@
                             <constraint firstItem="hCr-YE-tBI" firstAttribute="width" secondItem="J6M-Qs-gVR" secondAttribute="width" id="8hB-Ds-je2"/>
                             <constraint firstItem="jEL-Ew-W2h" firstAttribute="height" secondItem="8Nl-u1-RAa" secondAttribute="height" id="8rQ-xx-1Mm"/>
                             <constraint firstItem="HT3-Cd-mEc" firstAttribute="height" secondItem="8Nl-u1-RAa" secondAttribute="height" id="8tk-Nk-tbv"/>
+                            <constraint firstItem="lev-k8-Pwo" firstAttribute="centerX" secondItem="J6M-Qs-gVR" secondAttribute="centerX" id="8zo-q3-nQb"/>
                             <constraint firstItem="Shl-ye-bhm" firstAttribute="centerX" secondItem="gQp-zb-WKV" secondAttribute="centerX" id="BOa-uM-9O2"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="YZz-R7-pqB" secondAttribute="bottom" id="BjV-cg-Ttf"/>
                             <constraint firstItem="t5L-dU-RBr" firstAttribute="top" secondItem="gQp-zb-WKV" secondAttribute="bottom" id="CVL-bZ-dT5"/>
+                            <constraint firstItem="aPP-WE-3C9" firstAttribute="height" secondItem="J6M-Qs-gVR" secondAttribute="height" id="Cny-OK-OVf"/>
+                            <constraint firstItem="aPP-WE-3C9" firstAttribute="centerX" secondItem="jEL-Ew-W2h" secondAttribute="centerX" id="DTJ-OB-3nP"/>
+                            <constraint firstItem="aPP-WE-3C9" firstAttribute="top" secondItem="ksI-pv-nyd" secondAttribute="bottom" id="E2s-xZ-fgG"/>
                             <constraint firstItem="ksI-pv-nyd" firstAttribute="centerX" secondItem="J6M-Qs-gVR" secondAttribute="centerX" id="El2-Ik-Nff"/>
                             <constraint firstItem="YZz-R7-pqB" firstAttribute="top" secondItem="Shl-ye-bhm" secondAttribute="bottom" id="GJk-uX-8it"/>
                             <constraint firstAttribute="trailingMargin" secondItem="gQp-zb-WKV" secondAttribute="trailing" id="Gk2-oR-L85"/>
@@ -150,9 +157,9 @@
                             <constraint firstItem="Shl-ye-bhm" firstAttribute="width" secondItem="gQp-zb-WKV" secondAttribute="width" id="qJm-Sf-ILp"/>
                             <constraint firstItem="gQp-zb-WKV" firstAttribute="height" secondItem="8Nl-u1-RAa" secondAttribute="height" id="qPh-Am-X7e"/>
                             <constraint firstItem="qM4-dQ-9f6" firstAttribute="centerX" secondItem="jEL-Ew-W2h" secondAttribute="centerX" id="rDC-Lr-mEU"/>
-                            <constraint firstItem="lev-k8-Pwo" firstAttribute="centerX" secondItem="jEL-Ew-W2h" secondAttribute="centerX" id="sfd-Oj-ncy"/>
                             <constraint firstItem="8Pm-JI-tI0" firstAttribute="width" secondItem="jEL-Ew-W2h" secondAttribute="width" id="swn-Xu-fUo"/>
                             <constraint firstItem="HT3-Cd-mEc" firstAttribute="top" secondItem="sfQ-VR-oab" secondAttribute="bottom" id="tFJ-F1-Pmh"/>
+                            <constraint firstItem="aPP-WE-3C9" firstAttribute="width" secondItem="J6M-Qs-gVR" secondAttribute="width" id="uL0-A0-BI4"/>
                             <constraint firstItem="sfQ-VR-oab" firstAttribute="height" secondItem="8Nl-u1-RAa" secondAttribute="height" id="uha-P9-i1c"/>
                             <constraint firstItem="qM4-dQ-9f6" firstAttribute="top" secondItem="jEL-Ew-W2h" secondAttribute="bottom" id="vto-gH-Gsp"/>
                         </constraints>
