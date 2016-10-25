@@ -8,6 +8,10 @@
 
 import UIKit
 
+extension Array {
+
+}
+
 class ViewController: UIViewController {
 
     @IBOutlet weak var expressionQueueLabel: UILabel!
@@ -28,10 +32,9 @@ class ViewController: UIViewController {
     // Conversion to number can happen at evaluation time
     private var expressionQueue: [Expression] = [] {
         willSet {
-            print("willSet to \(newValue)")
-        }
-        didSet {
-            print("didSet to \(oldValue)")
+            expressionQueueLabel.text = newValue
+                .map({ "\($0)" })
+                .joined(separator: " ")
         }
     }
 
