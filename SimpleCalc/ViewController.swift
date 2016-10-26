@@ -76,31 +76,12 @@ class ViewController: UIViewController {
     }
 
     @IBAction func operatorSelected(_ sender: UIButton) {
-        let operatorExpression: Operator = definedOperators[sender.currentTitle!]!
+        let op: Operator = definedOperators[sender.currentTitle!]!
 
-        if currentNumberExists() {
-            let numberExpression: Number = Number(currentNumber)
-
-            if operatorExpression.operatesImmediately {
-                // do the operation now
-
-                if let result = try? perform(operatorExpression, on: [numberExpression.getValue()]) {
-                    currentNumber = "\(result)"
-                } else {
-                    print("Failed to perform \(operatorExpression) on \(numberExpression.getValue())")
-                }
-            } else {
-                // add number and operator to queue
-
-                expressionQueue += [numberExpression, operatorExpression] as [Expression]
-
-                resetCurrentNumber()
-            }
-        } else if !expressionQueue.isEmpty {
-            // replace last expression in queue
-
-            expressionQueue.removeLast()
-            expressionQueue.append(operatorExpression)
+        if let unaryOp = op as? UnaryOperator {
+            unaryOperatorSelected(unaryOp)
+        } else {
+            nonUnaryOperatorSelected(op)
         }
     }
 
@@ -131,6 +112,41 @@ class ViewController: UIViewController {
 
     private func resetExpressionQueue() {
         expressionQueue = []
+    }
+
+    //------------------------------------------------------------
+    // Queueing Helper Methods
+    //------------------------------------------------------------
+
+    // Queue current number and operator to be performed later
+    // Non-unary operators also support replacing each other
+    // since operations are deferred.
+    private func nonUnaryOperatorSelected(_ op: Operator) {
+        if currentNumberExists() {
+            let number: Number = Number(currentNumber)
+
+            // add number and operator to queue
+            expressionQueue += [number, op] as [Expression]
+            resetCurrentNumber()
+        } else if !expressionQueue.isEmpty {
+
+            // replace last expression in queue
+            expressionQueue.removeLast()
+            expressionQueue.append(op)
+        }
+    }
+
+    // Immediately performs the unary operation on the current number and replaces it
+    private func unaryOperatorSelected(_ op: UnaryOperator) {
+        if currentNumberExists() {
+            let number: Number = Number(currentNumber)
+
+            if let result = try? perform(op, on: [number.getValue()]) {
+                currentNumber = "\(result)"
+            } else {
+                print("failed to perform \(op) on \(number.getValue())")
+            }
+        }
     }
 
     //------------------------------------------------------------
@@ -169,7 +185,7 @@ class ViewController: UIViewController {
             sanitizedExpressions.removeLast()
         }
 
-        print("sanizited expr: \(sanitizedExpressions)")
+        print("sanizited expression list: \(sanitizedExpressions)")
 
         return sanitizedExpressions
     }
@@ -190,6 +206,7 @@ class ViewController: UIViewController {
             try sanitizedExpressions.forEach({ expression in
                 if let number = expression as? Number {
                     numberQueue.append(number.getValue())
+                    print("queueing number \(number.getValue())")
                 } else if let newOp = expression as? Operator {
 
                     // ensure an an op is queued
@@ -198,10 +215,9 @@ class ViewController: UIViewController {
                         return
                     }
 
-                    print("queuedOp: \(queuedOp!), newOp: \(newOp)")
                     if queuedOp! is MultaryOperator && type(of: queuedOp!) == type(of: newOp) {
                         // skip performing op, just accumulate operands instead
-                        print("Mult found, skipping")
+                        print("contiguous multary operator \(queuedOp!) found, delaying evaluation...")
                         return
                     }
 
@@ -250,7 +266,7 @@ class Number : Expression {
 
     func getValue() -> NumberType {
         return NumberType(self.description) ?? {
-            print("Number :: Failed to convert '\(self)' to \(NumberType.self), falling back to default")
+            print("Number :: failed to convert '\(self)' to \(NumberType.self), falling back to default")
             return Number.defaultNumberValue
         }()
     }
