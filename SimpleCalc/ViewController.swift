@@ -26,6 +26,11 @@ class ViewController: UIViewController {
         "x̅" : MultaryOperator("avg", average)
     ]
 
+    /// Errors
+    enum EvaluationError: Error {
+        case wrongNumberOfOperands
+    }
+
     // Tightly couple this with total label's text.
     // Conversion to number can happen at evaluation time
     private var currentNumber: String {
@@ -71,16 +76,26 @@ class ViewController: UIViewController {
     }
 
     @IBAction func operatorSelected(_ sender: UIButton) {
-        let operatorExpression: Expression = definedOperators[sender.currentTitle!]!
+        let operatorExpression: Operator = definedOperators[sender.currentTitle!]!
 
         if currentNumberExists() {
-            // add number and operator to queue
+            let numberExpression: Number = Number(currentNumber)
 
-            let numberExpression: Expression = Number(currentNumber)
+            if operatorExpression.operatesImmediately {
+                // do the operation now
 
-            expressionQueue += [numberExpression, operatorExpression]
+                if let result = try? perform(operatorExpression, on: [numberExpression.getValue()]) {
+                    currentNumber = "\(result)"
+                } else {
+                    print("Failed to perform \(operatorExpression) on \(numberExpression.getValue())")
+                }
+            } else {
+                // add number and operator to queue
 
-            resetCurrentNumber()
+                expressionQueue += [numberExpression, operatorExpression] as [Expression]
+
+                resetCurrentNumber()
+            }
         } else if !expressionQueue.isEmpty {
             // replace last expression in queue
 
@@ -96,10 +111,14 @@ class ViewController: UIViewController {
     }
 
     @IBAction func equalsSelected(_ sender: UIButton) {
+        if let result = evaluateExpressionQueue() {
+            resetExpressionQueue()
+            currentNumber = "\(result)"
+        }
     }
 
     //------------------------------------------------------------
-    // Helper Methods
+    // Abstracting Helper Methods
     //------------------------------------------------------------
 
     private func currentNumberExists() -> Bool {
@@ -112,6 +131,95 @@ class ViewController: UIViewController {
 
     private func resetExpressionQueue() {
         expressionQueue = []
+    }
+
+    //------------------------------------------------------------
+    // Evaluation Helper Methods
+    //------------------------------------------------------------
+
+    // Attempts to perform the given operation on the given operands,
+    // throwing an exception on invalid operand count.
+    // Returns a single number
+    private func perform(_ op: Operator, on numberQueue: [NumberType]) throws -> NumberType {
+        print("performing \(op) on \(numberQueue)")
+
+        if op.isValidOperandCount(numberQueue.count) {
+            // assume operate consumes entire number queue
+            // and returns a single number
+            return op.operate(numberQueue)
+        } else {
+            throw EvaluationError.wrongNumberOfOperands
+        }
+    }
+
+    private func getSanitizedListOfExpressions() -> [Expression]? {
+        var sanitizedExpressions: [Expression] = expressionQueue
+
+        // add current number if it exists
+        if currentNumberExists() {
+            sanitizedExpressions.append(Number(currentNumber))
+        }
+
+        guard !sanitizedExpressions.isEmpty else {
+            return nil
+        }
+
+        // ignore unfinished operators
+//        if sanitizedExpressions.last! is Operator {
+//            sanitizedExpressions.removeLast()
+//        }
+
+        print("sanizited expr: \(sanitizedExpressions)")
+
+        return sanitizedExpressions
+    }
+
+    private func evaluateExpressionQueue() -> NumberType? {
+        guard let sanitizedExpressions = getSanitizedListOfExpressions() else {
+            return nil
+        }
+
+        var numberQueue: [NumberType] = []
+
+        // extracts one more operand before evaluation
+        // i.e. 2 + 3 requires 3 where 4! can be performed immediately
+        var delayedOperator: Operator?
+
+        do {
+            try sanitizedExpressions.forEach({ expression in
+                if let number = expression as? Number {
+
+                    numberQueue.append(number.getValue())
+
+                    if let op = delayedOperator {
+                        // assume operate consumes entire number queue
+                        // and returns a single number
+                        numberQueue = [try perform(op, on: numberQueue)]
+                        delayedOperator = nil
+                    }
+
+                } else if let op = expression as? Operator {
+
+                    guard op.operatesImmediately else {
+                        delayedOperator = op
+                        return
+                    }
+
+                    // assume operate consumes entire number queue
+                    // and returns a single number
+                    numberQueue = [try perform(op, on: numberQueue)]
+                }
+            })
+
+            // unfinished operator
+            guard delayedOperator == nil else {
+                return nil
+            }
+
+            return numberQueue.first!
+        } catch {
+            return nil
+        }
     }
 }
 
@@ -152,14 +260,16 @@ class Number : Expression {
 typealias OperatorFunction = ([NumberType]) -> NumberType
 
 protocol Operator : Expression {
-    var operate: OperatorFunction { get }
     var isValidOperandCount: (Int) -> Bool { get }
+    var operate: OperatorFunction { get }
+    var operatesImmediately: Bool { get }
 }
 
 class UnaryOperator : Operator {
     let description: String
-    let operate: OperatorFunction
     let isValidOperandCount: (Int) -> Bool = { $0 == 1 }
+    let operate: OperatorFunction
+    var operatesImmediately = true
 
     init(_ symbol: String, _ operation: @escaping (NumberType) -> NumberType) {
         self.description = symbol
@@ -171,8 +281,9 @@ class UnaryOperator : Operator {
 
 class BinaryOperator : Operator {
     let description: String
-    let operate: OperatorFunction
     let isValidOperandCount: (Int) -> Bool = { $0 == 2 }
+    let operate: OperatorFunction
+    var operatesImmediately = false
 
     required init(_ symbol: String, _ operation: @escaping (NumberType, NumberType) -> NumberType) {
         self.description = symbol
@@ -184,8 +295,9 @@ class BinaryOperator : Operator {
 
 class MultaryOperator : Operator {
     let description: String
-    let operate: OperatorFunction
     let isValidOperandCount: (Int) -> Bool = { $0 >= 2 }
+    let operate: OperatorFunction
+    var operatesImmediately = false
 
     required init(_ symbol: String, _ operation: @escaping ([NumberType]) -> NumberType) {
         self.description = symbol
