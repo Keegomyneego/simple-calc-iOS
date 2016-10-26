@@ -90,6 +90,9 @@ class ViewController: UIViewController {
     }
 
     @IBAction func backspaceSelected(_ sender: UIButton) {
+        if currentNumberExists() {
+            currentNumber.dropLastCharacter()
+        }
     }
 
     @IBAction func equalsSelected(_ sender: UIButton) {
@@ -207,4 +210,15 @@ func count(nums: [NumberType]) -> NumberType {
 func average(nums: [NumberType]) -> NumberType {
     // return sum / count
     return NumberType(nums.reduce(0, +)) / NumberType(nums.count)
+}
+
+
+//------------------------------------------------------------
+// Extensions
+//------------------------------------------------------------
+
+extension String {
+    mutating func dropLastCharacter() {
+        self.remove(at: self.index(before: self.endIndex))
+    }
 }
