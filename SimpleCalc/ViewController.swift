@@ -165,9 +165,9 @@ class ViewController: UIViewController {
         }
 
         // ignore unfinished operators
-//        if sanitizedExpressions.last! is Operator {
-//            sanitizedExpressions.removeLast()
-//        }
+        if sanitizedExpressions.last! is Operator {
+            sanitizedExpressions.removeLast()
+        }
 
         print("sanizited expr: \(sanitizedExpressions)")
 
@@ -181,39 +181,42 @@ class ViewController: UIViewController {
 
         var numberQueue: [NumberType] = []
 
-        // extracts one more operand before evaluation
-        // i.e. 2 + 3 requires 3 where 4! can be performed immediately
-        var delayedOperator: Operator?
+        // operators are queued and only executed after a new operator is found
+        // i.e. in 2 + 3 - 1, 2+3 is performed when - is hit
+        // this allows us to catch multary operators
+        var queuedOp: Operator?
 
         do {
             try sanitizedExpressions.forEach({ expression in
                 if let number = expression as? Number {
-
                     numberQueue.append(number.getValue())
+                } else if let newOp = expression as? Operator {
 
-                    if let op = delayedOperator {
-                        // assume operate consumes entire number queue
-                        // and returns a single number
-                        numberQueue = [try perform(op, on: numberQueue)]
-                        delayedOperator = nil
-                    }
-
-                } else if let op = expression as? Operator {
-
-                    guard op.operatesImmediately else {
-                        delayedOperator = op
+                    // ensure an an op is queued
+                    guard queuedOp != nil else {
+                        queuedOp = newOp
                         return
                     }
 
-                    // assume operate consumes entire number queue
-                    // and returns a single number
-                    numberQueue = [try perform(op, on: numberQueue)]
+                    print("queuedOp: \(queuedOp!), newOp: \(newOp)")
+                    if queuedOp! is MultaryOperator && type(of: queuedOp!) == type(of: newOp) {
+                        // skip performing op, just accumulate operands instead
+                        print("Mult found, skipping")
+                        return
+                    }
+
+                    // okay ready to perform op now:
+                    // use op coalesces operands into a single result
+                    numberQueue = [try perform(queuedOp!, on: numberQueue)]
+
+                    // queue this new op we just got to perform later
+                    queuedOp = newOp
                 }
             })
 
-            // unfinished operator
-            guard delayedOperator == nil else {
-                return nil
+            // perform final operation
+            if queuedOp != nil {
+                numberQueue = [try perform(queuedOp!, on: numberQueue)]
             }
 
             return numberQueue.first!
