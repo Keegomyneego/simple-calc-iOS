@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  CalculatorViewController.swift
 //  SimpleCalc
 //
 //  Created by Keegs on 10/24/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class CalculatorViewController: UIViewController {
 
     /// UI
     @IBOutlet weak var expressionQueueLabel: UILabel!

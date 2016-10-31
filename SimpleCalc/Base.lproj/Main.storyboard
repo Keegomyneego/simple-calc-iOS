@@ -6,10 +6,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Calculator View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="SimpleCalc" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="CalculatorViewController" customModule="SimpleCalc" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -355,10 +355,10 @@
             </objects>
             <point key="canvasLocation" x="711.20000000000005" y="41.829085457271368"/>
         </scene>
-        <!--View Controller-->
+        <!--History View Controller-->
         <scene sceneID="sZP-Az-XUM">
             <objects>
-                <viewController id="Qqj-0s-txx" sceneMemberID="viewController">
+                <viewController id="Qqj-0s-txx" customClass="HistoryViewController" customModule="SimpleCalc" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Wee-ph-Qj7"/>
                         <viewControllerLayoutGuide type="bottom" id="UBR-Sn-Ayk"/>
@@ -377,6 +377,9 @@
                             <constraint firstItem="sHq-zv-WK6" firstAttribute="width" secondItem="xK9-mw-ZOg" secondAttribute="width" id="oa1-k0-uwq"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="scrollView" destination="sHq-zv-WK6" id="vIN-Bd-XuJ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hc5-av-lo9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
