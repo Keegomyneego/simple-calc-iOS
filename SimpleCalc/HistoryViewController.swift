@@ -10,7 +10,18 @@ import UIKit
 
 class HistoryViewController: UIViewController {
 
+    static var calculationHistory: [String] = []
+
     /// UI
     @IBOutlet weak var scrollView: UIScrollView!
 
+    //------------------------------------------------------------
+    // UIViewController Overrides
+    //------------------------------------------------------------
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+
+    }
 }

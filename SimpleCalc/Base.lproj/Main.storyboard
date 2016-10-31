@@ -367,23 +367,46 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sHq-zv-WK6"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LLJ-FG-yVI">
+                                <frame key="frameInset" minY="64" width="375" height="603"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZJ3-Bb-10v">
+                                        <rect key="frame" x="0.0" y="0.0" width="93" height="20.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="History Item" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oAD-I5-b4X">
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="oAD-I5-b4X" firstAttribute="top" secondItem="ZJ3-Bb-10v" secondAttribute="top" id="4OE-C2-61c"/>
+                                            <constraint firstAttribute="trailing" secondItem="oAD-I5-b4X" secondAttribute="trailing" id="F4M-4V-mZt"/>
+                                            <constraint firstItem="oAD-I5-b4X" firstAttribute="leading" secondItem="ZJ3-Bb-10v" secondAttribute="leading" id="cFd-Io-7ie"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="ZJ3-Bb-10v" secondAttribute="bottom" id="0g7-UD-vS7"/>
+                                    <constraint firstAttribute="trailing" secondItem="ZJ3-Bb-10v" secondAttribute="trailing" id="G5l-Kb-0um"/>
+                                    <constraint firstItem="ZJ3-Bb-10v" firstAttribute="top" secondItem="LLJ-FG-yVI" secondAttribute="top" id="dZz-Am-xx1"/>
+                                    <constraint firstItem="ZJ3-Bb-10v" firstAttribute="leading" secondItem="LLJ-FG-yVI" secondAttribute="leading" id="qHn-7E-EJK"/>
+                                </constraints>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="sHq-zv-WK6" firstAttribute="height" secondItem="xK9-mw-ZOg" secondAttribute="height" id="1ab-Ui-Q8E"/>
-                            <constraint firstItem="sHq-zv-WK6" firstAttribute="centerX" secondItem="xK9-mw-ZOg" secondAttribute="centerX" id="HPI-x4-AX2"/>
-                            <constraint firstItem="sHq-zv-WK6" firstAttribute="centerY" secondItem="xK9-mw-ZOg" secondAttribute="centerY" id="Lg3-Ro-OlW"/>
-                            <constraint firstItem="sHq-zv-WK6" firstAttribute="width" secondItem="xK9-mw-ZOg" secondAttribute="width" id="oa1-k0-uwq"/>
+                            <constraint firstItem="LLJ-FG-yVI" firstAttribute="leading" secondItem="xK9-mw-ZOg" secondAttribute="leading" id="NqH-06-OwO"/>
+                            <constraint firstItem="UBR-Sn-Ayk" firstAttribute="top" secondItem="LLJ-FG-yVI" secondAttribute="bottom" id="TJc-9A-oTa"/>
+                            <constraint firstItem="LLJ-FG-yVI" firstAttribute="top" secondItem="Wee-ph-Qj7" secondAttribute="bottom" id="nea-k8-kur"/>
+                            <constraint firstAttribute="trailing" secondItem="LLJ-FG-yVI" secondAttribute="trailing" id="xvJ-2u-HSX"/>
                         </constraints>
                     </view>
-                    <connections>
-                        <outlet property="scrollView" destination="sHq-zv-WK6" id="vIN-Bd-XuJ"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hc5-av-lo9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1511" y="42"/>
+            <point key="canvasLocation" x="1509.5999999999999" y="41.829085457271368"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="RRT-8Q-0wt">
