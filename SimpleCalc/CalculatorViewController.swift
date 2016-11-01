@@ -93,8 +93,14 @@ class CalculatorViewController: UIViewController {
 
     @IBAction func equalsSelected(_ sender: UIButton) {
         if let result = evaluateExpressionQueue() {
+            let calculationText = getCurrentCalculationText(withResult: result)
+
+            // update UI
             resetExpressionQueue()
             currentNumber = "\(result)"
+
+            // add calculation to history
+            HistoryViewController.addCalculation(calculationText)
         }
     }
 
@@ -152,6 +158,12 @@ class CalculatorViewController: UIViewController {
     //------------------------------------------------------------
     // Evaluation Helper Methods
     //------------------------------------------------------------
+
+    private func getCurrentCalculationText(withResult result: NumberType) -> String {
+        return self.expressionQueue
+            .map({ "\($0)" })
+            .joined(separator: " ") + " \(currentNumber) = \(result)"
+    }
 
     // Attempts to perform the given operation on the given operands,
     // throwing an exception on invalid operand count.

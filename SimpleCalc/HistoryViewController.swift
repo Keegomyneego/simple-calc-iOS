@@ -10,11 +10,11 @@ import UIKit
 
 class HistoryViewController: UIViewController {
 
-    typealias HistoryItemViewType = HistoryItemView
-
-    static var calculationHistory: [String] = (1...34).map({ "sample \($0)" })
+    /// Data
+    private static var calculationHistory: [String] = []
 
     /// UI
+    typealias HistoryItemViewType = HistoryItemView
     @IBOutlet weak var historyItemContainer: UIStackView!
 
     //------------------------------------------------------------
@@ -29,6 +29,18 @@ class HistoryViewController: UIViewController {
         }
     }
 
+    //------------------------------------------------------------
+    // Public interface
+    //------------------------------------------------------------
+
+    public static func addCalculation(_ text: String) {
+        calculationHistory.append(text)
+    }
+
+    //------------------------------------------------------------
+    // Private helpers
+    //------------------------------------------------------------
+
     private func addHistoryItem(atPosition position: Int, with text: String) {
         let historyItemNibName = String(describing: HistoryItemViewType.self)
 
@@ -38,11 +50,6 @@ class HistoryViewController: UIViewController {
 
             // add to view hierarchy
             self.historyItemContainer.addArrangedSubview(historyItemView)
-
-
-//            print("HIV \(position)")
-//            print("- \(historyItemView)")
-//            print(" - subview: \(historyItemView.subviews[0])")
         }
     }
 }

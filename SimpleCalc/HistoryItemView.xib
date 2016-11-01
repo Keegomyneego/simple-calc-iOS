@@ -26,7 +26,7 @@
                     <size key="shadowOffset" width="0.0" height="0.0"/>
                 </label>
             </subviews>
-            <color key="backgroundColor" red="0.60496336220000002" green="0.90106493229999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" red="0.4366554916" green="0.84969228510000006" blue="0.97978550200000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="zi8-0M-A86" secondAttribute="bottomMargin" id="53S-OR-oCx"/>
                 <constraint firstItem="zi8-0M-A86" firstAttribute="topMargin" secondItem="i5M-Pr-FkT" secondAttribute="top" id="9Et-vf-Xbl"/>
