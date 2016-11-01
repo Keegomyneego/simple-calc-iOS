@@ -15,6 +15,8 @@
 		94C44E7B1DBF25A100B68C33 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94C44E791DBF25A100B68C33 /* LaunchScreen.storyboard */; };
 		94C44E861DBF25A100B68C33 /* SimpleCalcTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C44E851DBF25A100B68C33 /* SimpleCalcTests.swift */; };
 		94C44E911DBF25A100B68C33 /* SimpleCalcUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C44E901DBF25A100B68C33 /* SimpleCalcUITests.swift */; };
+		94FD1D6B1DC927DB0044E2A2 /* HistoryItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FD1D691DC927DB0044E2A2 /* HistoryItemView.swift */; };
+		94FD1D6C1DC927DB0044E2A2 /* HistoryItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94FD1D6A1DC927DB0044E2A2 /* HistoryItemView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		94C44E8C1DBF25A100B68C33 /* SimpleCalcUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SimpleCalcUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		94C44E901DBF25A100B68C33 /* SimpleCalcUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleCalcUITests.swift; sourceTree = "<group>"; };
 		94C44E921DBF25A100B68C33 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		94FD1D691DC927DB0044E2A2 /* HistoryItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryItemView.swift; sourceTree = "<group>"; };
+		94FD1D6A1DC927DB0044E2A2 /* HistoryItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HistoryItemView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +112,7 @@
 		94C44E6F1DBF25A100B68C33 /* SimpleCalc */ = {
 			isa = PBXGroup;
 			children = (
+				94FD1D6D1DC927EC0044E2A2 /* Components */,
 				94BC28181DC88E32006208BC /* Screens */,
 				94C44E701DBF25A100B68C33 /* AppDelegate.swift */,
 				94C44E741DBF25A100B68C33 /* Main.storyboard */,
@@ -134,6 +139,15 @@
 				94C44E921DBF25A100B68C33 /* Info.plist */,
 			);
 			path = SimpleCalcUITests;
+			sourceTree = "<group>";
+		};
+		94FD1D6D1DC927EC0044E2A2 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				94FD1D691DC927DB0044E2A2 /* HistoryItemView.swift */,
+				94FD1D6A1DC927DB0044E2A2 /* HistoryItemView.xib */,
+			);
+			name = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -248,6 +262,7 @@
 			files = (
 				94C44E7B1DBF25A100B68C33 /* LaunchScreen.storyboard in Resources */,
 				94C44E781DBF25A100B68C33 /* Assets.xcassets in Resources */,
+				94FD1D6C1DC927DB0044E2A2 /* HistoryItemView.xib in Resources */,
 				94C44E761DBF25A100B68C33 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -275,6 +290,7 @@
 			files = (
 				94BC28171DC88E13006208BC /* HistoryViewController.swift in Sources */,
 				94C44E731DBF25A100B68C33 /* CalculatorViewController.swift in Sources */,
+				94FD1D6B1DC927DB0044E2A2 /* HistoryItemView.swift in Sources */,
 				94C44E711DBF25A100B68C33 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
